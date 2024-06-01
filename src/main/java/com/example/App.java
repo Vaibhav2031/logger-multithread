@@ -1,24 +1,25 @@
 package com.example;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.File;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import com.example.utility.FileOperations;
 
-import com.example.file_spliter.LogFileSplit;
-
-/**
- * Hello world!
- *
- */
 public class App {
-    public static void main(String[] args) {
-        Path filePath = Paths.get("src/logs/parent.log");
 
-        LogFileSplit logFileSplit = new LogFileSplit();
-        try {
-            logFileSplit.splitFile(filePath, 100);
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
+    public static void main(String[] args) {
+        File logFolder = Constants.LOG_FOLDER;
+        File[] files = logFolder.listFiles();
+
+        if (files != null) {
+            ExecutorService executor = Executors.newFixedThreadPool(files.length);
+            for (File file : files) {
+                executor.execute((Runnable) () -> { // Cast the lambda expression to Runnable
+                    FileOperations fileOperations = new FileOperations();
+                    fileOperations.readFile(file);
+                });
+            }
+            executor.shutdown();
         }
     }
 }
