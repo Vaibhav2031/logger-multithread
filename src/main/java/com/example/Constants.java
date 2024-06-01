@@ -8,4 +8,5 @@ public class Constants {
     }
 
     public static final File LOG_FOLDER = new File("src/logs");
+    public static final File OUTPUT_LOG_FOLDER = new File("src/output_logs");
 }
