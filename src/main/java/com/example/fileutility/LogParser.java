@@ -1,4 +1,4 @@
-package com.example.utility;
+package com.example.fileutility;
 
 import java.io.File;
 import java.io.FileWriter;

@@ -1,4 +1,4 @@
-package com.example.utility;
+package com.example.fileutility;
 
 public class FileParserFactory {
     public FileParser createParser(String fileType) {
