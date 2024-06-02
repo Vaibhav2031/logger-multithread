@@ -49,16 +49,17 @@ public class XmlParser implements FileParser {
             NodeList nodeList = doc.getElementsByTagName("entry"); // replace "*" with your XML element name
 
             try (PrintWriter writer = new PrintWriter(new FileWriter(outputLogFolder + "/" + csvFileName, true))) {
-                String data = " ";
                 for (int i = 0; i < nodeList.getLength(); i++) {
                     Node node = nodeList.item(i);
 
                     if (node.getNodeType() == Node.ELEMENT_NODE) {
                         Element element = (Element) node;
-                        NodeList childNodes = element.getElementsByTagName("message"); // replace "*" with your XML element name
+                        NodeList childNodes = element.getElementsByTagName("*"); // replace "*" with your XML element
+                                                                                 // name
                         if (childNodes.getLength() > 0) {
-                            data = childNodes.item(0).getTextContent();
-                            writer.println(data);
+                            writer.println(childNodes.item(0).getTextContent() + ","
+                                    + childNodes.item(1).getTextContent() + ","
+                                    + childNodes.item(2).getTextContent());
                         }
                     }
                 }
