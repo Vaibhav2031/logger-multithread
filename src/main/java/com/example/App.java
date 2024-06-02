@@ -12,7 +12,7 @@ public class App {
         File[] files = logFolder.listFiles();
 
         if (files != null) {
-            ExecutorService executor = Executors.newFixedThreadPool(files.length);
+            ExecutorService executor = Executors.newFixedThreadPool(3);
             for (File file : files) {
                 executor.execute((Runnable) () -> { // Cast the lambda expression to Runnable
                     FileOperations fileOperations = new FileOperations();
