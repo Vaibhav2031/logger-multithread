@@ -31,7 +31,19 @@ public class LogParser implements FileParser {
 
         try (Stream<String> lines = Files.lines(Paths.get(logFolder + "/" + fileName));
                 PrintWriter writer = new PrintWriter(new FileWriter(outputLogFolder + "/" + csvFileName, true))) {
-            lines.forEach(line -> writer.println(line.replace(" ", ",")));
+            lines.forEach(line -> {
+                String[] parts = line.split(" ", 4);
+                if (parts.length == 4) {
+                    String date = parts[0];
+                    String time = parts[1];
+                    String severity = parts[2];
+                    String message = parts[3];
+
+                    // Format the output line for CSV
+                    String csvLine = String.format("%s,%s,%s,%s", date, time, severity, message);
+                    writer.println(csvLine);
+            }
+        });
         } catch (IOException e) {
             e.printStackTrace();
         }
